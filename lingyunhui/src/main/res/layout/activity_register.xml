@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:App="http://schemas.android.com/apk/res-auto"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/titleLayoutL"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical">
+
+    <include layout="@layout/common_top"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_15">
+
+        <TextView
+            android:id="@+id/tv_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/padding_5"
+            android:text="手机号:"
+            android:textSize="@dimen/text_size_18"/>
+
+        <com.huotu.android.library.libedittext.EditText
+            android:id="@+id/edt_phone"
+            style="@style/CyEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/padding_10"
+            android:layout_toRightOf="@id/tv_phone_number"
+            android:focusable="true"
+            android:hint="请输入手机号"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:padding="@dimen/padding_5"
+            android:textSize="@dimen/content_text"
+            App:style="orange"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/color_gray"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_15">
+
+        <TextView
+            android:id="@+id/tv_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/padding_5"
+            android:text="验证码:"
+            android:textSize="@dimen/text_size_18"/>
+
+        <com.huotu.android.library.libedittext.EditText
+            style="@style/CyEditTextStyle"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/padding_10"
+            android:layout_toRightOf="@id/tv_code"
+            android:inputType="phone"
+            android:focusable="true"
+            android:hint="请输入验证码"
+            android:padding="@dimen/padding_5"
+            android:textSize="@dimen/content_text"
+            App:style="orange"/>
+        <Button
+            android:id="@+id/btn_code"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:background="@drawable/code_bg"
+            android:text="获取验证码"
+            android:layout_centerInParent="true"
+            android:textColor="@android:color/white"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_save"
+        style="@style/ButtonLayout"
+        android:layout_marginTop="@dimen/padding_50"
+        android:text="保存"
+        android:textColor="@android:color/white"/>
+
+</LinearLayout>

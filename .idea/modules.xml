@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Android_lingyunhui.iml" filepath="$PROJECT_DIR$/Android_lingyunhui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lingyunhui/lingyunhui.iml" filepath="$PROJECT_DIR$/lingyunhui/lingyunhui.iml" />
+    </modules>
+  </component>
+</project>

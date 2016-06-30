@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/titleLayoutL"
+    xmlns:App="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_top"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_15">
+
+        <ImageView
+            android:id="@+id/iv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/padding_5"
+            android:src="@mipmap/btn_user"/>
+
+        <com.huotu.android.library.libedittext.EditText
+            android:id="@+id/edt_phone_number"
+            style="@style/CyEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/padding_10"
+            android:layout_toRightOf="@id/iv_id"
+            android:inputType="phone"
+            android:focusable="true"
+            android:hint="手机号码"
+            android:maxLength="11"
+            android:padding="@dimen/padding_5"
+            android:textSize="@dimen/content_text"
+            App:style="transparent"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/color_gray"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_15">
+
+        <ImageView
+            android:id="@+id/iv_psw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/padding_5"
+            android:src="@mipmap/btn_psw"/>
+
+        <com.huotu.android.library.libedittext.EditText
+            android:id="@+id/edt_password"
+            style="@style/CyEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/padding_10"
+            android:layout_toRightOf="@id/iv_psw"
+            android:hint="登入密码"
+            android:inputType="textPassword"
+            android:maxLength="18"
+            android:padding="@dimen/padding_5"
+            android:textSize="@dimen/content_text"
+            App:style="transparent"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/color_gray"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="@dimen/padding_5">
+
+        <!--<CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="记住密码"
+            android:textColor="@color/color_gray"/>-->
+
+        <TextView
+            android:id="@+id/tv_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_5"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:textColor="@color/title_black"
+            android:text="忘记密码?"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_login"
+        style="@style/ButtonLayout"
+        android:layout_marginTop="@dimen/padding_10"
+        android:text="立即登入"
+        android:textColor="@android:color/white"/>
+
+    <Button
+        android:id="@+id/btn_register"
+        style="@style/ButtonLayout"
+        android:layout_marginTop="@dimen/padding_10"
+        android:text="注册"
+        android:textColor="@android:color/white"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/login_wechat"
+            android:background="@drawable/bt_press_selector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/padding_20"
+            android:layout_centerInParent="true">
+
+            <ImageView
+                android:id="@+id/iv_wechat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/logo_wechat"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/padding_5"
+                android:layout_toRightOf="@id/iv_wechat"
+                android:text="微信登入"
+                android:textSize="@dimen/content_text"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

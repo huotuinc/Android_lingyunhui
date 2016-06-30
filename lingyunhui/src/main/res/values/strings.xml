@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">LingYunHui</string>
+    <string name="action_settings">Settings</string>
+    <!--引导界面图片-->
+    <string-array name="guide_pic">
+        <item>guide_pic0</item>
+        <item>guide_pic1</item>
+        <item>guide_pic2</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
