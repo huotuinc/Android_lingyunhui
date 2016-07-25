@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.huotu.lingyunhui.R;
-import com.huotu.lingyunhui.config.Contant;
 import com.huotu.lingyunhui.ui.base.BaseActivity;
 import com.huotu.lingyunhui.utils.ToastUtils;
 import com.huotu.lingyunhui.widgets.CountDownTimerButton;

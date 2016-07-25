@@ -6,92 +6,92 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="40dp">-->
 
-        <LinearLayout
-            android:id="@+id/ll_position"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@drawable/bt_press_selector"
-            android:padding="@dimen/padding_10">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/ll_position"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="@drawable/bt_press_selector"-->
+            <!--android:padding="@dimen/padding_10">-->
 
-            <TextView
-                android:id="@+id/tv_position"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="杭州市"
-                android:textColor="@color/title_black"
-                android:textSize="@dimen/text_size_14"/>
-        </LinearLayout>
+            <!--<TextView-->
+                <!--android:id="@+id/tv_position"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:text="杭州市"-->
+                <!--android:textColor="@color/title_black"-->
+                <!--android:textSize="@dimen/text_size_14"/>-->
+        <!--</LinearLayout>-->
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@mipmap/line"/>
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:background="@mipmap/line"/>-->
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+        <!--<LinearLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1">-->
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/sliding_tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabIndicatorColor="@color/text_red"
-                app:tabMode="fixed"
-                app:tabSelectedTextColor="@color/text_red"
-                app:tabTextAppearance="@style/CustomTabLayoutTextAppearance"
-                app:tabTextColor="@color/title_black"/>
+            <!--<android.support.design.widget.TabLayout-->
+                <!--android:id="@+id/sliding_tabs"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:tabIndicatorColor="@color/text_red"-->
+                <!--app:tabMode="fixed"-->
+                <!--app:tabSelectedTextColor="@color/text_red"-->
+                <!--app:tabTextAppearance="@style/CustomTabLayoutTextAppearance"-->
+                <!--app:tabTextColor="@color/title_black"/>-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@mipmap/line"/>
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:background="@mipmap/line"/>-->
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+        <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent">-->
 
-            <LinearLayout
-                android:id="@+id/ll_selector"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/bt_press_selector"
-                android:gravity="center">
+            <!--<LinearLayout-->
+                <!--android:id="@+id/ll_selector"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/bt_press_selector"-->
+                <!--android:gravity="center">-->
 
-                <ImageView
-                    android:id="@+id/iv_select"
-                    android:layout_width="@dimen/padding_25"
-                    android:layout_height="@dimen/padding_25"
-                    android:layout_margin="@dimen/padding_5"
-                    android:background="@mipmap/down"/>
-            </LinearLayout>
+                <!--<ImageView-->
+                    <!--android:id="@+id/iv_select"-->
+                    <!--android:layout_width="@dimen/padding_25"-->
+                    <!--android:layout_height="@dimen/padding_25"-->
+                    <!--android:layout_margin="@dimen/padding_5"-->
+                    <!--android:background="@mipmap/down"/>-->
+            <!--</LinearLayout>-->
 
-            <LinearLayout
-                android:id="@+id/ll_search"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/bt_press_selector"
-                android:gravity="center">
+            <!--<LinearLayout-->
+                <!--android:id="@+id/ll_search"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/bt_press_selector"-->
+                <!--android:gravity="center">-->
 
-                <ImageView
-                    android:layout_width="@dimen/padding_25"
-                    android:layout_height="@dimen/padding_25"
-                    android:layout_margin="@dimen/padding_5"
-                    android:src="@mipmap/search"/>
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
+                <!--<ImageView-->
+                    <!--android:layout_width="@dimen/padding_25"-->
+                    <!--android:layout_height="@dimen/padding_25"-->
+                    <!--android:layout_margin="@dimen/padding_5"-->
+                    <!--android:src="@mipmap/search"/>-->
+            <!--</LinearLayout>-->
+        <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
     <WebView
         android:id="@+id/web_home"
         android:layout_width="match_parent"

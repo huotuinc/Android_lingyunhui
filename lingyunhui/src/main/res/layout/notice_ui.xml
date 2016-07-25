@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="#ffffffff">
+    <ImageView
+        android:id="@+id/notice_close"
+        android:background="@drawable/skyblue_editpage_image_remove"
+        android:layout_width="@dimen/sideslip_login_icon_margin"
+        android:layout_height="@dimen/sideslip_login_icon_margin"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"/>
+    <TextView
+        android:id="@+id/notice_text"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/notice_close"
+        android:text="正在加载数据"
+        android:gravity="center"
+        android:textSize="@dimen/notice_text_size"
+        android:textColor="#000000"/>
+</RelativeLayout>

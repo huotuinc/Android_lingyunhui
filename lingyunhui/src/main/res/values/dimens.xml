@@ -16,4 +16,8 @@
     <dimen name="text_size_18">18sp</dimen>
     <dimen name="toast_width">200dp</dimen>
     <dimen name="toast_height">80dp</dimen>
+    <!--toast字体大小-->
+    <dimen name="notice_text_size">14sp</dimen>
+    <!--侧滑界面登录模块图标边缘间距-->
+    <dimen name="sideslip_login_icon_margin">20dp</dimen>
 </resources>
