@@ -22,7 +22,12 @@ import com.huotu.lingyunhui.model.MDataPackageModel;
 import com.huotu.lingyunhui.model.MSiteModel;
 import com.huotu.lingyunhui.model.MerchantInfoModel;
 import com.huotu.lingyunhui.model.MerchantPayInfo;
+import com.huotu.lingyunhui.model.OrderModel;
+import com.huotu.lingyunhui.model.PayModel;
 import com.huotu.lingyunhui.ui.base.BaseApplication;
+import com.huotu.lingyunhui.widgets.NoticePopWindow;
+import com.huotu.lingyunhui.widgets.PayPopWindow;
+import com.huotu.lingyunhui.widgets.ProgressPopupWindow;
 
 import org.json.JSONObject;
 
@@ -427,89 +432,89 @@ public class HttpUtil {
 //        VolleyUtil.getRequestQueue().add( re);
 //    }
 //
-//    public void doVolleyPay(final Activity aty, final Handler mHandler, final BaseApplication application, String url, final PayModel payModel, final ProgressPopupWindow payProgress  ){
-//        final KJJsonObjectRequest re = new KJJsonObjectRequest (Request.Method.GET, url, null, new Response.Listener<JSONObject>(){
-//
-//
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                if( aty ==null  ) return;
-//
-//                JSONUtil<OrderModel > jsonUtil = new JSONUtil<OrderModel>();
-//                OrderModel orderInfo = new OrderModel();
-//                orderInfo = jsonUtil.toBean(response.toString (), orderInfo);
-//                if(200 == orderInfo.getCode ()) {
-//                    if ( null != orderInfo ) {
-//                        OrderModel.OrderData order = orderInfo.getData ( );
-//                        if ( null == order)
-//                        {
-//                            //支付信息获取错误
-//                            payProgress.dismissView ( );
-//                            NoticePopWindow noticePop = new NoticePopWindow ( aty, "获取订单信息失败。");
-//                            noticePop.showNotice ( );
-//                            noticePop.showAtLocation (  aty.getWindow().getDecorView() ,  Gravity.CENTER, 0, 0
-//                            );
-//                        }
-//                        else
-//                        {
-//                            payModel.setAmount ( ( int ) ( 100 * format2Decimal ( order.getFinal_Amount ( ) ) ) );
-//                            payModel.setDetail ( order.getToStr ( ) );
-//
-//
-//                            if ( null != order ) {
-//                                payProgress.dismissView ( );
-//                                PayPopWindow payPopWindow = new PayPopWindow ( aty,  mHandler, application, payModel );
-//                                payPopWindow.showAtLocation ( aty.getWindow().getDecorView() , Gravity.BOTTOM, 0, 0 );
-//                                //支付
-//                        /*if("1".equals ( payModel.getPaymentType () ) || "7".equals ( payModel.getPaymentType () ))
-//                        {
-//                            //添加支付宝回调路径
-//                            payModel.setNotifyurl ( application.obtainMerchantUrl () + application.readAlipayNotify ( ) );
-//                            //alipay
-//                            PayFunc payFunc = new PayFunc ( context, payModel, application, mHandler, aty, payProgress );
-//                            payFunc.aliPay ( );
-//
-//                        }
-//                        else if("2".equals ( payModel.getPaymentType () ) || "9".equals ( payModel.getPaymentType () ))
-//                        {
-//                            payModel.setAttach ( payModel.getCustomId ()+"_0" );
-//                            //添加微信回调路径
-//                            payModel.setNotifyurl ( application.obtainMerchantUrl ( ) + application.readWeixinNotify() );
-//                            PayFunc payFunc = new PayFunc ( context, payModel, application, mHandler, aty, payProgress );
-//                            payFunc.wxPay ( );
-//
-//                        }*/
-//                            }
-//
-//                        }
-//                    }
-//                    else
-//                    {
-//                        payProgress.dismissView ( );
-//                        NoticePopWindow noticePop = new NoticePopWindow ( aty,  "获取订单信息失败。");
-//                        noticePop.showNotice ();
-//                        noticePop.showAtLocation ( aty.getWindow().getDecorView() , Gravity.CENTER, 0, 0 );
-//                    }
-//                }
-//                else
-//                {
-//                    //支付信息获取错误
-//                    payProgress.dismissView ( );
-//                    NoticePopWindow noticePop = new NoticePopWindow (  aty,  "获取订单信息失败。");
-//                    noticePop.showNotice ( );
-//                    noticePop.showAtLocation ( aty.getWindow().getDecorView() , Gravity.CENTER, 0, 0 );
-//                }
-//
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                payProgress.dismissView ( );
-//            }
-//        });
-//        VolleyUtil.getRequestQueue ().add( re);
-//    }
-//
+    public void doVolleyPay(final Activity aty, final Handler mHandler, final BaseApplication application, String url, final PayModel payModel, final ProgressPopupWindow payProgress  ){
+        final KJJsonObjectRequest re = new KJJsonObjectRequest (Request.Method.GET, url, null, new Response.Listener<JSONObject>(){
+
+
+            @Override
+            public void onResponse(JSONObject response) {
+                if( aty ==null  ) return;
+
+                JSONUtil<OrderModel> jsonUtil = new JSONUtil<OrderModel>();
+                OrderModel orderInfo = new OrderModel();
+                orderInfo = jsonUtil.toBean(response.toString (), orderInfo);
+                if(200 == orderInfo.getCode ()) {
+                    if ( null != orderInfo ) {
+                        OrderModel.OrderData order = orderInfo.getData ( );
+                        if ( null == order)
+                        {
+                            //支付信息获取错误
+                            payProgress.dismissView ( );
+                            NoticePopWindow noticePop = new NoticePopWindow ( aty, "获取订单信息失败。");
+                            noticePop.showNotice ( );
+                            noticePop.showAtLocation (  aty.getWindow().getDecorView() ,  Gravity.CENTER, 0, 0
+                            );
+                        }
+                        else
+                        {
+                            payModel.setAmount ( ( int ) ( 100 * format2Decimal ( order.getFinal_Amount ( ) ) ) );
+                            payModel.setDetail ( order.getToStr ( ) );
+
+
+                            if ( null != order ) {
+                                payProgress.dismissView ( );
+                                PayPopWindow payPopWindow = new PayPopWindow( aty,  mHandler, application, payModel );
+                                payPopWindow.showAtLocation ( aty.getWindow().getDecorView() , Gravity.BOTTOM, 0, 0 );
+                                //支付
+                        /*if("1".equals ( payModel.getPaymentType () ) || "7".equals ( payModel.getPaymentType () ))
+                        {
+                            //添加支付宝回调路径
+                            payModel.setNotifyurl ( application.obtainMerchantUrl () + application.readAlipayNotify ( ) );
+                            //alipay
+                            PayFunc payFunc = new PayFunc ( context, payModel, application, mHandler, aty, payProgress );
+                            payFunc.aliPay ( );
+
+                        }
+                        else if("2".equals ( payModel.getPaymentType () ) || "9".equals ( payModel.getPaymentType () ))
+                        {
+                            payModel.setAttach ( payModel.getCustomId ()+"_0" );
+                            //添加微信回调路径
+                            payModel.setNotifyurl ( application.obtainMerchantUrl ( ) + application.readWeixinNotify() );
+                            PayFunc payFunc = new PayFunc ( context, payModel, application, mHandler, aty, payProgress );
+                            payFunc.wxPay ( );
+
+                        }*/
+                            }
+
+                        }
+                    }
+                    else
+                    {
+                        payProgress.dismissView ( );
+                        NoticePopWindow noticePop = new NoticePopWindow ( aty,  "获取订单信息失败。");
+                        noticePop.showNotice ();
+                        noticePop.showAtLocation ( aty.getWindow().getDecorView() , Gravity.CENTER, 0, 0 );
+                    }
+                }
+                else
+                {
+                    //支付信息获取错误
+                    payProgress.dismissView ( );
+                    NoticePopWindow noticePop = new NoticePopWindow(  aty,  "获取订单信息失败。");
+                    noticePop.showNotice ( );
+                    noticePop.showAtLocation ( aty.getWindow().getDecorView() , Gravity.CENTER, 0, 0 );
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                payProgress.dismissView ( );
+            }
+        });
+        VolleyUtil.getRequestQueue ().add( re);
+    }
+
 //    /**
 //     * 清楚重复数据
 //     * @param dataList

@@ -31,12 +31,12 @@ import butterknife.OnClick;
  */
 public class HomeFragment extends BaseFragment {
 
-    @Bind(R.id.sliding_tabs)
-    TabLayout tabLayout;
-    @Bind(R.id.iv_select)
-    ImageView ivSelect;
-    @Bind(R.id.tv_position)
-    TextView tvPosition;
+//    @Bind(R.id.sliding_tabs)
+//    TabLayout tabLayout;
+//    @Bind(R.id.iv_select)
+//    ImageView ivSelect;
+//    @Bind(R.id.tv_position)
+//    TextView tvPosition;
     @Bind(R.id.web_home)
     WebView web_home;
 
@@ -50,7 +50,7 @@ public class HomeFragment extends BaseFragment {
         if (!init) {
             initView();
             initData();
-            initTab();
+            //initTab();
             initWebView(web_home);
             init = true;
         }
@@ -96,14 +96,14 @@ public class HomeFragment extends BaseFragment {
     private void initView() {
     }
 
-    private void initTab() {
-        for (int i = 0; i < 3; i++) {
-            TabLayout.Tab tab = tabLayout.newTab().setText(lists.get(i).getTitle());
-            tabLayout.addTab(tab);
-        }
-        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        tabLayout.setOnTabSelectedListener(tabSelectedListener);
-    }
+//    private void initTab() {
+//        for (int i = 0; i < 3; i++) {
+//            TabLayout.Tab tab = tabLayout.newTab().setText(lists.get(i).getTitle());
+//            tabLayout.addTab(tab);
+//        }
+//        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+//        tabLayout.setOnTabSelectedListener(tabSelectedListener);
+//    }
 
    /* private void initWebView() {
         loadPage();
@@ -159,50 +159,50 @@ public class HomeFragment extends BaseFragment {
      * @param str
      */
     public void logMsg(String str) {
-        try {
-            if (tvPosition != null)
-                tvPosition.setText(str);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            if (tvPosition != null)
+//                tvPosition.setText(str);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
-    @OnClick(R.id.ll_selector)
-    public void select(View view) {
-        final EditDialog dialog = new EditDialog(getActivity());
+//    @OnClick(R.id.ll_selector)
+//    public void select(View view) {
+//        final EditDialog dialog = new EditDialog(getActivity());
+//
+//        ivSelect.setBackgroundResource(R.mipmap.pull);
+//        dialog.showNewsColumn(titles);
+//        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//            @Override
+//            public void onDismiss(DialogInterface dialog) {
+//                ivSelect.setBackgroundResource(R.mipmap.down);
+//            }
+//        });
+//        dialog.show();
+//    }
 
-        ivSelect.setBackgroundResource(R.mipmap.pull);
-        dialog.showNewsColumn(titles);
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                ivSelect.setBackgroundResource(R.mipmap.down);
-            }
-        });
-        dialog.show();
-    }
-
-    @OnClick(R.id.ll_search)
-    public void search(View view) {
-        Toast.makeText(getActivity(), "搜索", Toast.LENGTH_SHORT).show();
-    }
-
-    private TabLayout.OnTabSelectedListener tabSelectedListener = new TabLayout.OnTabSelectedListener() {
-        @Override
-        public void onTabSelected(TabLayout.Tab tab) {
-            Toast.makeText(getActivity(), "" + tab.getText(), Toast.LENGTH_LONG).show();
-        }
-
-        @Override
-        public void onTabUnselected(TabLayout.Tab tab) {
-
-        }
-
-        @Override
-        public void onTabReselected(TabLayout.Tab tab) {
-
-        }
-    };
+//    @OnClick(R.id.ll_search)
+//    public void search(View view) {
+//        Toast.makeText(getActivity(), "搜索", Toast.LENGTH_SHORT).show();
+//    }
+//
+//    private TabLayout.OnTabSelectedListener tabSelectedListener = new TabLayout.OnTabSelectedListener() {
+//        @Override
+//        public void onTabSelected(TabLayout.Tab tab) {
+//            Toast.makeText(getActivity(), "" + tab.getText(), Toast.LENGTH_LONG).show();
+//        }
+//
+//        @Override
+//        public void onTabUnselected(TabLayout.Tab tab) {
+//
+//        }
+//
+//        @Override
+//        public void onTabReselected(TabLayout.Tab tab) {
+//
+//        }
+//    };
 
     //重写返回键
     private View.OnKeyListener onKeyListener = new View.OnKeyListener() {

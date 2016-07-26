@@ -64,6 +64,7 @@
         <com.huotu.android.library.libedittext.EditText
             style="@style/CyEditTextStyle"
             android:layout_width="140dp"
+            android:id="@+id/edt_code"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/padding_10"
@@ -89,7 +90,7 @@
         android:id="@+id/btn_save"
         style="@style/ButtonLayout"
         android:layout_marginTop="@dimen/padding_50"
-        android:text="保存"
+        android:text="提交"
         android:textColor="@android:color/white"/>
 
 </LinearLayout>

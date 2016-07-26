@@ -1,17 +1,41 @@
 package com.huotu.lingyunhui.ui.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.huotu.lingyunhui.R;
+import com.huotu.lingyunhui.config.Constants;
+import com.huotu.lingyunhui.model.BaseBean;
+import com.huotu.lingyunhui.model.DataBase;
+import com.huotu.lingyunhui.model.InitModel;
+import com.huotu.lingyunhui.model.MenuBean;
 import com.huotu.lingyunhui.ui.base.BaseActivity;
+import com.huotu.lingyunhui.ui.splash.SplashActivity;
+import com.huotu.lingyunhui.utils.ActivityUtils;
+import com.huotu.lingyunhui.utils.AuthParamUtils;
+import com.huotu.lingyunhui.utils.GsonRequest;
 import com.huotu.lingyunhui.utils.ToastUtils;
+import com.huotu.lingyunhui.utils.VolleyUtil;
 import com.huotu.lingyunhui.widgets.CountDownTimerButton;
+import com.huotu.lingyunhui.widgets.ProgressPopupWindow;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,8 +52,11 @@ public class RegisterActivity extends BaseActivity {
     Button btn_code;
     @Bind(R.id.title_tv)
     TextView titleTv;
+    @Bind(R.id.edt_code)
+    EditText  edtCode;
     @Bind(R.id.edt_phone)
     EditText edtPhone;
+    ProgressPopupWindow progressPopupWindow;
 
     // 按钮倒计时控件
     private CountDownTimerButton countDownBtn;
@@ -65,6 +92,50 @@ public class RegisterActivity extends BaseActivity {
                 break;
             //提交，保存
             case R.id.btn_save:
+                String url = Constants.Message_url + "VerifyCode";
+                Map<String, String> map = new HashMap<>();
+                map.put("mobile", edtPhone.getText().toString());
+                map.put("code",edtCode.getText().toString());
+                //map.put("second");
+                AuthParamUtils authParamUtils = new AuthParamUtils( url);
+                Map<String, String> params = authParamUtils.obtainParams(map);
+
+
+                GsonRequest<DataBase> request = new GsonRequest<DataBase>(Request.Method.POST,
+                        url, DataBase.class, null, params, new Response.Listener<DataBase>() {
+                    @Override
+                    public void onResponse(DataBase dataBase) {
+                        if (progressPopupWindow != null) {
+                            progressPopupWindow.dismissView();
+                            ActivityUtils.getInstance().skipActivity(RegisterActivity.this,ModifyPwdActivity.class);
+                        }
+                        if (dataBase == null || dataBase.getCode() != 200 ) {
+                           // ToastUtils.showShortToast( RegisterActivity.this,"验证码错误");
+                            if (bundle.getInt("type")==1) {
+                                bundle.putInt("type", 1);
+                                bundle.putString("moblie",edtPhone.getText().toString());
+                                ActivityUtils.getInstance().skipActivity(RegisterActivity.this, ModifyPwdActivity.class,bundle);
+                            }else {
+                                bundle.putInt("type", 2);
+                                bundle.putString("moblie",edtPhone.getText().toString());
+                                ActivityUtils.getInstance().skipActivity(RegisterActivity.this, ModifyPwdActivity.class,bundle);
+                            }
+                            return;
+                        }
+
+                        edtCode.requestFocus();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        if (progressPopupWindow != null) {
+                            progressPopupWindow.dismissView();
+                        }
+                        ToastUtils.showShortToast(RegisterActivity.this,"请求失败");
+                    }
+                });
+
+                VolleyUtil.getRequestQueue().add( request );
 
                 break;
             //获取验证码
@@ -85,7 +156,42 @@ public class RegisterActivity extends BaseActivity {
     private void checkUserName() {
         countDownBtn = new CountDownTimerButton(btn_code, "%d秒重发", "获取验证码", 60000, new CountDownFinish());
         countDownBtn.start();
+        String url = Constants.Message_url + "SendCode";
+        Map<String, String> map = new HashMap<>();
+        map.put("mobile", edtPhone.getText().toString());
+        //map.put("second");
+        AuthParamUtils authParamUtils = new AuthParamUtils( url);
+        Map<String, String> params = authParamUtils.obtainParams(map);
+
+
+        GsonRequest<DataBase> request = new GsonRequest<DataBase>(Request.Method.POST,
+                url, DataBase.class, null, params, new Response.Listener<DataBase>() {
+            @Override
+            public void onResponse(DataBase dataBase) {
+                if (progressPopupWindow != null) {
+                    progressPopupWindow.dismissView();
+                }
+                if (dataBase == null || dataBase.getCode() != 200 ) {
+                    ToastUtils.showShortToast( RegisterActivity.this,"获取验证码失败。");
+                    return;
+                }
+
+                edtCode.requestFocus();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                if (progressPopupWindow != null) {
+                    progressPopupWindow.dismissView();
+                }
+                ToastUtils.showShortToast(RegisterActivity.this,"请求失败");
+            }
+        });
+
+        VolleyUtil.getRequestQueue().add( request );
+
     }
+
 
     //验证输入的电话号码是不是为空
     private boolean isWritePhone() {

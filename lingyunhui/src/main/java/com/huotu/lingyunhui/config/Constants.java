@@ -25,13 +25,75 @@ public class Constants {
     public static final int MSG_AUTH_ERROR      = 4;
     public static final int MSG_AUTH_COMPLETE   = 5;
 
-    public static final String INTERFACE_URL = "http://mallapi.huobanj.cn/";
+    public static final String INTERFACE_URL = "http://mallapi.huobanj.cn/ArvatoConfig/";
+    public static final String Message_url = "http://mallapi.huobanj.cn/ArvatoMessage/";
+    public static final String URL = "http://mallapi.huobanj.cn/";
+    /**
+     ******************************************* 参数设置信息结束
+     * ******************************************
+     */
+
+    //标准时间
+    public final static String TIME_FORMAT   = "yyyy-MM-dd HH:mm:ss";
+    //标准时间01
+    public static final String DATE_FORMAT   = "yyyy-MM-dd";
+
+    /**
+     * 底部菜单加载页面
+     */
+    public static final int LOAD_PAGE_MESSAGE_TAG = 4381;
+    //网页支付
+    public static final int PAY_NET = 2222;
+    /**
+     * tile栏刷新页面
+     */
+    public static final int FRESHEN_PAGE_MESSAGE_TAG = 4380;
+
+
     /**
      * app系统配置
      */
     public static final String SYS_INFO    = "sysInfo";
     public static final String SYS_PACKAGE = "sysPackage";
     public static final String FIRST_OPEN  = "firstOpen";
+    public static final String CUSTOMER_ID = "customerid={}";
+    public static final String USER_ID     = "userid={}";
+    public static final String COMMON_SHARE_LOGO = "http://1804.img.pp.sohu.com.cn/images/2013/1/14/16/2/6205e011f029437o_13cfbf362e6g85.jpg";
+
+    // 分享成功
+    public static final int SHARE_SUCCESS = 0X1000;
+
+    // 分享取消
+    public static final int SHARE_CANCEL = 0X2000;
+
+    // 分享失败
+    public static final int SHARE_ERROR = 0X3000;
+    /**
+     * 微信支付appID
+     */
+    public static final String WXPAY_ID    = "wx2f2604e380cf6be1";
+    public static final String WXPAY_SECRT = "ae3a7d851f24bfc97047954fa3975cec";
+    public static final String PAY_URL     = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s";
+
+    // 商户PID
+    public static final String PARTNER      = "";
+    // 商户收款账号
+    public static final String SELLER       = "";
+    // 商户私钥，pkcs8格式
+    public static final String RSA_PRIVATE  = "";
+    // 支付宝公钥
+    public static final String RSA_PUBLIC   = "";
+    public static final int    SDK_PAY_FLAG = 1;
+
+    public static final int SDK_CHECK_FLAG = 2;
+
+    // API密钥，在商户平台设置(微信支付商户)
+    public static final String wxpayApikey    = "0db0d4908a6ae6a09b0a7727878f0ca6";
+    //微信parterKey
+    public static final String wxpayParterkey = "1251040401";
+
+    //微信支付
+    public static final String WX_URL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 
     /**
      * 操作平台码
@@ -43,6 +105,40 @@ public class Constants {
     public static final String APP_ID = "7986d22352bf5acf37981b8e991edd76";
 
     public static final String APP_SECRET = "9389e8a5c32eefa3134340640fb4cead";
+
+    //http请求参数
+    //获取具体页面的商品类别
+    public static final String INTENT_URL   = "INTENT_URL";
+    public static final String HTTP_OBTAIN_CATATORY = "/goods/obtainCatagory?";
+    //获取商品信息
+    public static final String HTTP_OBTAIN_GOODS    = "/goods/obtainGoods?";
+    //new view
+    public static final String WEB_TAG_NEWFRAME     = "__newframe";
+    //上传图片
+    public static final String WEB_TAG_COMMITIMG    = "partnermall520://pickimage";
+    //登出
+    public static final String WEB_TAG_LOGOUT       = "partnermall520://logout";
+    //信息保护
+    public static final String WEB_TAG_INFO         = "partnermall520://togglepb";
+    //关闭当前页
+    public static final String WEB_TAG_FINISH       = "partnermall520://closepage";
+    //share
+    public static final String WEB_TAG_SHARE        = "partnermall520://shareweb";
+    //弹出框
+    public static final String WEB_TAG_ALERT        = "partnermall520://alert";
+    //支付
+    public static final String WEB_TAG_PAYMENT      = "partnermall520://payment";
+    //用户信息修改
+    public static final String WEB_TAG_USERINFO     = "partnermall520://userinfo?";
+    //联系客服
+    public static final String WEB_CONTACT          = "mqqwpa://im/chat";
+    //支付
+    public static final String WEB_PAY      = "/Mall/AppAlipay.aspx";
+    //鉴权失效
+    public static final String AUTH_FAILURE = "/UserCenter/Login.aspx";
+
+    //切换账户
+    public static final String URL_APPACCOUNTSWITCHER="/UserCenter/AppAccountSwitcher.aspx";
 
     /**
      * ************************************商户信息xml节点***********************

@@ -8,6 +8,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -20,6 +21,7 @@ import com.huotu.lingyunhui.model.MSiteModel;
 import com.huotu.lingyunhui.model.MenuBean;
 import com.huotu.lingyunhui.ui.base.BaseActivity;
 import com.huotu.lingyunhui.ui.guide.GuideActivity;
+import com.huotu.lingyunhui.ui.login.LoginActivity;
 import com.huotu.lingyunhui.ui.main.MainActivity;
 import com.huotu.lingyunhui.utils.ActivityUtils;
 import com.huotu.lingyunhui.utils.AuthParamUtils;
@@ -43,7 +45,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void initData() {
         //startAnimation();
-        String url = Constants.INTERFACE_URL+"ArvatoConfig/GetArvatoConfig";
+        String url = Constants.INTERFACE_URL+"GetArvatoConfig";
         url += "?userid="+ application.readUserId()+"&unionId="+ application.readUserUnionId()+"&openId="+application.readOpenId();
         AuthParamUtils params = new AuthParamUtils(application, System.currentTimeMillis(),url,this);
         url= params.obtainUrl();
@@ -81,6 +83,8 @@ public class SplashActivity extends BaseActivity {
                 , new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                ToastUtils.showLongToast(SplashActivity.this,"初始化失败");
+//                goNextUi();
             }
         }
         );
@@ -154,32 +158,18 @@ public class SplashActivity extends BaseActivity {
 //    };
 
     private void goNextUi() {
-        if (application.isConn) {
             //是否首次安装
             if (application.isFirst()) {
                 ActivityUtils.getInstance().skipActivity(SplashActivity.this, GuideActivity.class);
                 //写入初始化数据
                 application.writeInitInfo("inited");
             } else {
-                //判断是否登录
-//                                if (application.isLogin()) {
-                Intent intent = new Intent();
-                intent.setClass( SplashActivity.this , MainActivity.class);
-//                if(null!= bundlePush) {
-//                    intent.putExtra( Constants.HUOTU_PUSH_KEY , bundlePush);
-//                }
-//                ActivityUtils.getInstance().skipActivity(SplashActivity.this, intent );
-//                                } else {
-//                                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-//                                    if(null!= bundlePush) {
-//                                        intent.putExtra( Constants.HUOTU_PUSH_KEY , bundlePush);
-//                                    }
-//                                    ActivityUtils.getInstance().skipActivity(SplashActivity.this, intent);
-//                                }
+                ActivityUtils.getInstance().skipActivity(SplashActivity.this, MainActivity.class);
+            }
 
             }
-        }
-    }
+
+
 
     @Override
     protected void onStop() {

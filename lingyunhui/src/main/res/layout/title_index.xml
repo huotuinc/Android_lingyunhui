@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_title_height"
+        android:id="@+id/homeTitle">
+
+        <ImageView
+            android:id="@+id/titleLeftImage"
+            android:layout_width="@dimen/title_back_width"
+            android:layout_height="@dimen/title_back_height"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+             />
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            android:maxEms="10"
+            android:singleLine="true"
+            android:ellipsize="end"/>
+        <ImageView
+            android:id="@+id/titleRightLeftImage"
+            android:layout_width="@dimen/title_back_width"
+            android:layout_height="@dimen/title_back_height"
+            android:layout_toLeftOf="@+id/titleRightImage"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            />
+
+        <ImageView
+            android:id="@+id/titleRightImage"
+            android:layout_width="@dimen/title_back_width"
+            android:layout_height="@dimen/title_back_height"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            />
+    </RelativeLayout>
+
+</merge>

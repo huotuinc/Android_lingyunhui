@@ -1,6 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:App="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/titleLayoutL"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
+    <include layout="@layout/common_top"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_15">
+
+        <ImageView
+            android:id="@+id/iv_psw1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/padding_5"
+            android:src="@mipmap/btn_psw"/>
+
+        <com.huotu.android.library.libedittext.EditText
+            android:id="@+id/edt_password1"
+            style="@style/CyEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/padding_10"
+            android:layout_toRightOf="@id/iv_psw1"
+            android:hint="输入密码"
+            android:inputType="textPassword"
+            android:maxLength="18"
+            android:padding="@dimen/padding_5"
+            android:textSize="@dimen/content_text"
+            App:style="transparent"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_15">
+
+        <ImageView
+            android:id="@+id/iv_psw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/padding_5"
+            android:src="@mipmap/btn_psw"/>
+
+        <com.huotu.android.library.libedittext.EditText
+            android:id="@+id/edt_password"
+            style="@style/CyEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/padding_10"
+            android:layout_toRightOf="@id/iv_psw"
+            android:hint="再次输入密码"
+            android:inputType="textPassword"
+            android:maxLength="18"
+            android:padding="@dimen/padding_5"
+            android:textSize="@dimen/content_text"
+            App:style="transparent"/>
+    </RelativeLayout>
+    <Button
+        android:id="@+id/btn_save"
+        style="@style/ButtonLayout"
+        android:layout_marginTop="@dimen/padding_50"
+        android:text="提交"
+        android:textColor="@android:color/white"/>
 </LinearLayout>

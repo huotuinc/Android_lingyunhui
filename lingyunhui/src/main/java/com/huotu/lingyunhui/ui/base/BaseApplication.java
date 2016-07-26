@@ -9,6 +9,8 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
+import android.webkit.CookieManager;
 
 import com.google.gson.Gson;
 import com.huotu.lingyunhui.config.Constants;
@@ -19,7 +21,9 @@ import com.huotu.lingyunhui.utils.VolleyUtil;
 
 import java.util.List;
 
+import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.wechat.friends.Wechat;
 
 /**
  * Created by hzbc on 2016/5/17.
@@ -80,7 +84,56 @@ public class BaseApplication extends Application {
             return false;
         }
     }
+    //登出
+    public void logout() {
+//        if( plat ==null ) {
+//            plat = ShareSDK.getPlatform(Wechat.NAME);
+//        }
 
+        Platform platform = ShareSDK.getPlatform(Wechat.NAME);
+        //取消授权
+        if (null != platform) {
+            platform.removeAccount();
+        }
+
+        PreferenceHelper.clean(getApplicationContext(), Constants.MEMBER_INFO);
+
+        clearAllCookies();
+    }
+
+    public String readWxpayAppId() {
+        return PreferenceHelper.readString(getApplicationContext(), Constants.MERCHANT_INFO, Constants.MERCHANT_WEIXIN_ID);
+    }
+    public String readWeixinNotify() {
+        return PreferenceHelper.readString(getApplicationContext(), Constants.MERCHANT_INFO, Constants.WEIXIN_NOTIFY);
+    }
+    //获取用户名称
+    public String getUserName() {
+        return PreferenceHelper.readString(getApplicationContext(), Constants.MEMBER_INFO, Constants.MEMBER_NAME);
+    }
+    public String readWxpayParentId() {
+        return PreferenceHelper.readString(getApplicationContext(), Constants.MERCHANT_INFO, Constants.WEIXIN_MERCHANT_ID);
+    }
+
+    public String readWxpayAppKey() {
+        return PreferenceHelper.readString(getApplicationContext(), Constants.MERCHANT_INFO,
+                Constants.WEIXIN_KEY);
+    }
+    public boolean scanWx() {
+        String parentId = PreferenceHelper.readString(getApplicationContext(), Constants.MERCHANT_INFO, Constants.WEIXIN_MERCHANT_ID);
+        String appid = PreferenceHelper.readString(getApplicationContext(), Constants.MERCHANT_INFO, Constants.MERCHANT_WEIXIN_ID);
+        String appKey = PreferenceHelper.readString(getApplicationContext(), Constants.MERCHANT_INFO, Constants.WEIXIN_KEY);
+        String notify = PreferenceHelper.readString(getApplicationContext(), Constants.MERCHANT_INFO, Constants.WEIXIN_NOTIFY);
+
+        if (!TextUtils.isEmpty(parentId) && !TextUtils.isEmpty(appid) && !TextUtils.isEmpty(appKey) && !TextUtils.isEmpty(notify)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public void clearAllCookies(){
+        CookieManager.getInstance().removeAllCookie();
+    }
     public void writeInitInfo(String initStr) {
         PreferenceHelper.writeString(getApplicationContext(), Constants.SYS_INFO, Constants.FIRST_OPEN, initStr);
     }
@@ -177,7 +230,13 @@ public class BaseApplication extends Application {
                 Constants.ALIPAY_KEY
         );
     }
+    public String readMemberId() {
+        return PreferenceHelper.readString(getApplicationContext(), Constants.MEMBER_INFO, Constants.MEMBER_ID);
+    }
 
+    public void writeMemberId(String userId) {
+        PreferenceHelper.writeString(getApplicationContext(), Constants.MEMBER_INFO, Constants.MEMBER_ID, userId);
+    }
     public String readAlipayParentId() {
         return PreferenceHelper.readString(getApplicationContext(), Constants.MERCHANT_INFO, Constants.ALIPAY_MERCHANT_ID);
     }
@@ -260,10 +319,9 @@ public class BaseApplication extends Application {
     public String getAppVersion(Context context) {
         String version = "0";
         try {
-            version = context.getPackageManager().getPackageInfo(
-                    context.getPackageName(), 0).versionName;
+            version = app.getPackageManager().getPackageInfo(app.getPackageName(), 0).versionName;
         } catch (PackageManager.NameNotFoundException e) {
-
+            Log.e(BaseApplication.class.getName(), e.getMessage());
         }
         return version;
     }
