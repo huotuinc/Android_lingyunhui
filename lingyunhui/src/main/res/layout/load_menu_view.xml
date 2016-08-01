@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_title_height"
+        android:id="@+id/loadMenuView">
+
+        <WebView
+            android:id="@+id/menuPage"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/main_title_height"
+            android:layout_centerHorizontal="true"
+            android:scrollbars="none"/>
+    </RelativeLayout>
+</merge>

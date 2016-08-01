@@ -15,7 +15,43 @@ public class PhoneLoginModel extends DataBase {
     }
 
     public class PhoneModel{
-        private int userid;
+        private int userId;
+        private String userName;
+        private String unionId;
+        private String agentId;
+
+        public int getUserId() {
+            return userId;
+        }
+
+        public void setUserId(int userId) {
+            this.userId = userId;
+        }
+
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
+        public String getUnionId() {
+            return unionId;
+        }
+
+        public void setUnionId(String unionId) {
+            this.unionId = unionId;
+        }
+
+        public String getAgentId() {
+            return agentId;
+        }
+
+        public void setAgentId(String agentId) {
+            this.agentId = agentId;
+        }
+
         private String levelName;
         private String nickName;
         private String headImgUrl;
@@ -30,13 +66,7 @@ public class PhoneLoginModel extends DataBase {
         private boolean IsMobileBind;
         private String openId;
 
-        public int getUserid() {
-            return userid;
-        }
 
-        public void setUserid(int userid) {
-            this.userid = userid;
-        }
 
         public String getAuthorizeCode() {
             return authorizeCode;

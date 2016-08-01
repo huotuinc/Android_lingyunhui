@@ -36,14 +36,15 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:design:23.3.0'
-    compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.huotu.android.library:libedittext:1.6'
-    compile 'com.android.support:support-v4:23.3.0'
-    compile 'com.handmark.library:pulltorefresh:1.1'
-    compile 'org.greenrobot:eventbus:3.0.0'
     compile files('libs/commons-codec-1.10.jar')
     compile files('libs/volley.jar')
     compile files('libs/gson-2.2.4.jar')
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.huotu.android.library:libedittext:1.6'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'com.handmark.library:pulltorefresh:1.1'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha1'
 }

@@ -14,8 +14,13 @@ public class Constants {
 
     // 屏幕密度
     public static float SCREEN_DENSITY = 1.5f;
+
+    public static final String Header_Secret = "08afd6f9ae0c6017d105b4ce580de885";
     //鉴权失效
     public static final int LOGIN_AUTH_ERROR = 2131;
+    //鉴权成功
+    public static final int LOGIN_AUTH_SUCCESS=2132;
+
     //微信登录:用户存在
     public static final int MSG_USERID_FOUND    = 1;
     //微信登录：用户不存在
@@ -255,6 +260,9 @@ public class Constants {
     public static final String MEMBER_SECURE = "secure";
     //用户登录类型（1：微信登录，2：手机登录）
     public static final String MEMBER_LOGINTYPE="loginType";
+    public static final String member_mallBottomUrl="mallBottomUrl";
+    public static final String member_mallUrl="mallUrl";
+    public static final String member_version="version";
 
     //登录方式
     public static final String MERCHANT_INFO_LOGINMETHOD = "login_method";

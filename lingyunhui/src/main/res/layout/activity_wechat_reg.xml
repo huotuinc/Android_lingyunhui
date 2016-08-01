@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:App="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:App="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/titleLayoutL"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,34 +8,46 @@
     android:orientation="vertical">
 
     <include layout="@layout/common_top"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/padding_15">
 
         <ImageView
-            android:id="@+id/iv_psw1"
+            android:id="@+id/iv_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/padding_5"
-            android:src="@mipmap/btn_psw"/>
+            android:src="@mipmap/btn_user"/>
 
         <com.huotu.android.library.libedittext.EditText
-            android:id="@+id/edt_password1"
+            android:id="@+id/edt_phone_number"
             style="@style/CyEditTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/padding_10"
-            android:layout_toRightOf="@id/iv_psw1"
-            android:hint="输入密码"
-            android:inputType="textPassword"
-            android:maxLength="18"
+            android:layout_toRightOf="@id/iv_id"
+            android:inputType="phone"
+            android:focusable="true"
+            android:hint="手机号码"
+            android:maxLength="11"
             android:padding="@dimen/padding_5"
             android:textSize="@dimen/content_text"
             App:style="transparent"/>
     </RelativeLayout>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/color_gray"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,17 +69,19 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/padding_10"
             android:layout_toRightOf="@id/iv_psw"
-            android:hint="再次输入密码"
+            android:hint="登入密码"
             android:inputType="textPassword"
             android:maxLength="18"
             android:padding="@dimen/padding_5"
             android:textSize="@dimen/content_text"
             App:style="transparent"/>
     </RelativeLayout>
+
     <Button
         android:id="@+id/btn_save"
         style="@style/ButtonLayout"
         android:layout_marginTop="@dimen/padding_50"
         android:text="提交"
         android:textColor="@android:color/white"/>
+
 </LinearLayout>

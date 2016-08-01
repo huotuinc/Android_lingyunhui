@@ -274,6 +274,13 @@ public class BaseApplication extends Application {
         PreferenceHelper.writeString(getApplicationContext(), Constants.MEMBER_INFO, Constants.MEMBER_UNIONID, unionid);
         PreferenceHelper.writeString(getApplicationContext(), Constants.MEMBER_INFO, Constants.MEMBER_OPENID , openid );
     }
+    public void writePhoneLogin(String loginName, String realName, int relatedType, String authorizeCode, String secure) {
+        PreferenceHelper.writeString(getApplicationContext(), Constants.MEMBER_INFO, Constants.MEMBER_LOGINNAME, loginName);
+        PreferenceHelper.writeString(getApplicationContext(), Constants.MEMBER_INFO, Constants.MEMBER_REALNAME, realName);
+        PreferenceHelper.writeInt(getApplicationContext(), Constants.MEMBER_INFO, Constants.MEMBER_RELATEDTYPE, relatedType);
+        PreferenceHelper.writeString(getApplicationContext(), Constants.MEMBER_INFO, Constants.MEMBER_AUTHORIZECODE, authorizeCode);
+        PreferenceHelper.writeString(getApplicationContext(), Constants.MEMBER_INFO, Constants.MEMBER_SECURE, secure);
+    }
     public void writeMemberLevelId(int levelid) {
         PreferenceHelper.writeInt(getApplicationContext(), Constants.MEMBER_INFO, Constants.MEMBER_LEVELID, levelid);
     }
@@ -324,5 +331,17 @@ public class BaseApplication extends Application {
             Log.e(BaseApplication.class.getName(), e.getMessage());
         }
         return version;
+    }
+
+    public void writeConfiginfo(String mallBottomUrl, String mallUrl, String version) {
+        PreferenceHelper.writeString(getApplicationContext(), Constants.MEMBER_INFO, Constants.member_mallBottomUrl, mallBottomUrl);
+        PreferenceHelper.writeString(getApplicationContext(), Constants.MEMBER_INFO, Constants.member_mallUrl, mallUrl);
+        PreferenceHelper.writeString(getApplicationContext(), Constants.MEMBER_INFO, Constants.member_version, version);
+    }
+    public String readmallBottomUrl(){
+        return PreferenceHelper.readString(getApplicationContext(), Constants.MEMBER_INFO, Constants.member_mallBottomUrl, "");
+    }
+    public String readversion(){
+        return PreferenceHelper.readString(getApplicationContext(), Constants.MEMBER_INFO, Constants.member_version, "");
     }
 }

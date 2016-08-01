@@ -24,6 +24,24 @@ class AccountModel implements Serializable {
     private String nickname;
     //openId
     private String openid;
+    private String moblie;
+    private String password;
+
+    public String getMoblie() {
+        return moblie;
+    }
+
+    public void setMoblie(String moblie) {
+        this.moblie = moblie;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public
     int getSex ( ) {

@@ -5,8 +5,7 @@ import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.ScaleAnimation;
+import android.view.animation.Interpolator;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -44,9 +43,9 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        //startAnimation();
+        startAnimation();
         String url = Constants.INTERFACE_URL+"GetArvatoConfig";
-        url += "?userid="+ application.readUserId()+"&unionId="+ application.readUserUnionId()+"&openId="+application.readOpenId();
+        url += "?openid="+application.readOpenId();
         AuthParamUtils params = new AuthParamUtils(application, System.currentTimeMillis(),url,this);
         url= params.obtainUrl();
         GsonRequest<InitModel> gsonRequest = new GsonRequest<InitModel>(
@@ -64,6 +63,10 @@ public class SplashActivity extends BaseActivity {
                         List<MenuBean> menus = new ArrayList< MenuBean >(  );
                         MenuBean menu = null;
                         List<InitModel.MenuModel > home_menus = base.getData ().getBottomMenus();
+                        InitModel.AppConfigModel appConfigModel = base.getData().getAppConfig();
+                        InitModel.UserModel  userModel = base.getData().getUserInfo();
+                        application.writeMemberInfo(userModel.getUserName(),userModel.getUserId(),null,null,userModel.getUnionId(),userModel.getOpenId());
+                        application.writeConfiginfo(appConfigModel.getMallBottomUrl(),appConfigModel.getMallUrl(),appConfigModel.getVersion());
                         for(InitModel.MenuModel home_menu:home_menus)
                         {
                             menu = new MenuBean ();
@@ -108,54 +111,54 @@ public class SplashActivity extends BaseActivity {
         return R.layout.activity_splash;
     }
 
-//    private void startAnimation() {
-//        /*// 动画集合，一起播放
-//        AnimationSet animationSet = new AnimationSet(true);
-//
-//        // 缩放动画
-//        ScaleAnimation scaleAnimation = new ScaleAnimation(
-//                0, 1,
-//                0, 1,
-//                Animation.RELATIVE_TO_SELF, 0.5f,
-//                Animation.RELATIVE_TO_SELF, 0.5f);
-//        scaleAnimation.setDuration(Contant.ANIMATION_DURATION);
-//        animationSet.addAnimation(scaleAnimation);
-//
-//
-//        // 透明度的动画
-//        AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
-//        alphaAnimation.setDuration(Contant.ANIMATION_DURATION);
-//        animationSet.addAnimation(alphaAnimation);*/
-//        AlphaAnimation anima = new AlphaAnimation(0.0f, 1.0f);
-//        anima.setDuration(Constants.ANIMATION_DURATION);// 设置动画显示时间
-//        splashIv.setAnimation(anima);
-//        anima.setAnimationListener(animationListener);
-//    }
-//
-//    static Handler handler = new Handler();
-//    private Animation.AnimationListener animationListener = new Animation.AnimationListener() {
-//        @Override
-//        public void onAnimationStart(Animation animation) {
-//
-//        }
-//
-//        @Override
-//        public void onAnimationEnd(Animation animation) {
-//            handler.postDelayed(goNextUiRunnable, 2000);
-//        }
-//
-//        @Override
-//        public void onAnimationRepeat(Animation animation) {
-//
-//        }
-//    };
-//    private Runnable goNextUiRunnable = new Runnable() {
-//
-//        @Override
-//        public void run() {
-//            goNextUi();
-//        }
-//    };
+    private void startAnimation() {
+        /*// 动画集合，一起播放
+        AnimationSet animationSet = new AnimationSet(true);
+
+        // 缩放动画
+        ScaleAnimation scaleAnimation = new ScaleAnimation(
+                0, 1,
+                0, 1,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
+        scaleAnimation.setDuration(Contant.ANIMATION_DURATION);
+        animationSet.addAnimation(scaleAnimation);
+
+
+        // 透明度的动画
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0, 1);
+        alphaAnimation.setDuration(Contant.ANIMATION_DURATION);
+        animationSet.addAnimation(alphaAnimation);*/
+        AlphaAnimation anima = new AlphaAnimation(0.0f, 1.0f);
+        anima.setDuration(Constants.ANIMATION_DURATION);// 设置动画显示时间
+        splashIv.setAnimation(anima);
+        anima.setAnimationListener(animationListener);
+    }
+
+    static Handler handler = new Handler();
+    private Animation.AnimationListener animationListener = new Animation.AnimationListener() {
+        @Override
+        public void onAnimationStart(Animation animation) {
+
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            handler.postDelayed(goNextUiRunnable, 2000);
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+    };
+    private Runnable goNextUiRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+            //goNextUi();
+        }
+    };
 
     private void goNextUi() {
             //是否首次安装

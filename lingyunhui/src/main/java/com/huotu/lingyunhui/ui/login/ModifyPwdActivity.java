@@ -16,6 +16,7 @@ import com.huotu.lingyunhui.R;
 import com.huotu.lingyunhui.config.Constants;
 import com.huotu.lingyunhui.model.DataBase;
 import com.huotu.lingyunhui.model.PhoneLoginModel;
+import com.huotu.lingyunhui.model.RefreshHttpHeaderEvent;
 import com.huotu.lingyunhui.ui.base.BaseActivity;
 import com.huotu.lingyunhui.ui.base.BaseApplication;
 import com.huotu.lingyunhui.ui.main.MainActivity;
@@ -55,7 +56,11 @@ public class ModifyPwdActivity extends BaseActivity {
 
     @Override
     protected void initTitle() {
-        titleTv.setText("设置密码");
+        if (bundle.getInt("type")==1){
+            titleTv.setText("注册");
+        }else if (bundle.getInt("type")==2) {
+            titleTv.setText("设置密码");
+        }
         titleLeft.setImageResource(R.mipmap.back_gray);
     }
 
@@ -71,35 +76,66 @@ public class ModifyPwdActivity extends BaseActivity {
                 break;
             //提交，保存
             case R.id.btn_save:
-                if (edt_password1==edt_password) {
-                    String url = Constants.URL + "/ArvatoUser/RegisterByMobile";
-                    Map<String, String> map = new HashMap<>();
-                    map.put("mobile", bundle.getString("moblie"));
-                    map.put("code", edt_password.getText().toString());
-                    AuthParamUtils authParamUtils = new AuthParamUtils(application,  System.currentTimeMillis() , url , ModifyPwdActivity.this );
-                    Map<String, String> params = authParamUtils.obtainParams(map);
-                    GsonRequest<PhoneLoginModel> request = new GsonRequest<>(
-                            Request.Method.POST,
-                            url,
-                            PhoneLoginModel.class,
-                            null,
-                            params,
-                            new MyLoginListener(this),
-                            new MyLoginErrorListener(this)
-                    );
-                    VolleyUtil.getRequestQueue().add(request);
+                if(bundle.getInt("type")==1) {
+                    if (edt_password1.getText().toString().equals(edt_password.getText().toString())) {
+                        String url = Constants.URL + "/ArvatoUser/RegisterByMobile";
+                        Map<String, String> map = new HashMap<>();
+                        map.put("mobile", bundle.getString("moblie"));
+                        map.put("code", edt_password.getText().toString());
+                        AuthParamUtils authParamUtils = new AuthParamUtils(application, secure, url, ModifyPwdActivity.this);
+                        Map<String, String> params = authParamUtils.obtainParams(map);
+                        GsonRequest<PhoneLoginModel> request = new GsonRequest<>(
+                                Request.Method.POST,
+                                url,
+                                PhoneLoginModel.class,
+                                null,
+                                params,
+                                new MyLoginListener(this),
+                                new MyLoginErrorListener(this)
+                        );
+                        VolleyUtil.getRequestQueue().add(request);
 
-                    if( progressPopupWindow ==null){
-                        progressPopupWindow=new ProgressPopupWindow( ModifyPwdActivity.this);
+                        if (progressPopupWindow == null) {
+                            progressPopupWindow = new ProgressPopupWindow(ModifyPwdActivity.this);
+                        }
+                        progressPopupWindow.showProgress("正在登录，请稍等...");
+                        progressPopupWindow.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+                    } else if (TextUtils.isEmpty(edt_password.getText().toString()) || TextUtils.isEmpty(edt_password1.getText().toString())) {
+                        ToastUtils.showShortToast(ModifyPwdActivity.this, "密码不能为空");
+                    } else {
+                        ToastUtils.showShortToast(ModifyPwdActivity.this, "两次输入密码不一致");
                     }
-                    progressPopupWindow.showProgress("正在登录，请稍等...");
-                    progressPopupWindow.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER , 0 , 0);
-                }
-                else if(TextUtils.isEmpty(edt_password.getText().toString())||TextUtils.isEmpty(edt_password1.getText().toString())){
-                    ToastUtils.showShortToast(ModifyPwdActivity.this, "密码不能为空");
-                }
-                else {
-                    ToastUtils.showShortToast(ModifyPwdActivity.this, "两次输入密码不一致");
+
+                }else if (bundle.getInt("type")==2){
+                    if (edt_password1.getText().toString().equals(edt_password.getText().toString())) {
+                        String url = Constants.URL + "ArvatoUser/ModifyPassword";
+                        Map<String, String> map = new HashMap<>();
+                        map.put("userName", bundle.getString("moblie"));
+                        map.put("password", edt_password.getText().toString());
+                        AuthParamUtils authParamUtils = new AuthParamUtils(application, secure, url, ModifyPwdActivity.this);
+                        Map<String, String> params = authParamUtils.obtainParams(map);
+                        GsonRequest<PhoneLoginModel> request = new GsonRequest<>(
+                                Request.Method.POST,
+                                url,
+                                PhoneLoginModel.class,
+                                null,
+                                params,
+                                new MyLoginListener(this),
+                                new MyLoginErrorListener(this)
+                        );
+                        VolleyUtil.getRequestQueue().add(request);
+
+                        if (progressPopupWindow == null) {
+                            progressPopupWindow = new ProgressPopupWindow(ModifyPwdActivity.this);
+                        }
+                        progressPopupWindow.showProgress("正在提交，请稍等...");
+                        progressPopupWindow.showAtLocation(this.getWindow().getDecorView(), Gravity.CENTER, 0, 0);
+                    } else if (TextUtils.isEmpty(edt_password.getText().toString()) || TextUtils.isEmpty(edt_password1.getText().toString())) {
+                        ToastUtils.showShortToast(ModifyPwdActivity.this, "密码不能为空");
+                    } else {
+                        ToastUtils.showShortToast(ModifyPwdActivity.this, "两次输入密码不一致");
+                    }
+
                 }
                 break;
             default:
@@ -120,11 +156,11 @@ public class ModifyPwdActivity extends BaseActivity {
             }
 
             if( phoneLoginModel ==null ){
-                ToastUtils.showShortToast( "登录失败。" );
+                ToastUtils.showShortToast( "提交失败。" );
                 return;
             }
             if( phoneLoginModel.getCode() != 200) {
-                String msg = "登录失败";
+                String msg = "提交失败";
                 if( !TextUtils.isEmpty( phoneLoginModel.getMsg()  )){
                     msg = phoneLoginModel.getMsg();
                 }
@@ -137,7 +173,7 @@ public class ModifyPwdActivity extends BaseActivity {
             //写入userID
             //和商城用户系统交互
             ref.get().application.writeMemberInfo(
-                    model.getNickName(), String.valueOf(model.getUserid()),
+                    model.getNickName(), String.valueOf(model.getUserId()),
                     model.getHeadImgUrl(), String.valueOf( ref.get().secure )  , model.getAuthorizeCode() , model.getOpenId() );
             ref.get().application.writeMemberLevel(model.getLevelName());
 
@@ -156,12 +192,12 @@ public class ModifyPwdActivity extends BaseActivity {
             //bd.putString(NativeConstants.KEY_SMARTUICONFIGURL, url);
             //bd.putBoolean(NativeConstants.KEY_ISMAINUI, true);
             Intent intent = new Intent();
-            intent.setClass(ref.get(), HomeActivity.class);
+            intent.setClass(ref.get(), MainActivity.class);
             intent.putExtras(bd);
             //传递推送信息
-            if(null !=ref.get().bundlePush){
-                intent.putExtra( Constants.PUSH_KEY, ref.get().bundlePush );
-            }
+//            if(null !=ref.get().bundlePush){
+//                intent.putExtra( Constants.PUSH_KEY, ref.get().bundlePush );
+//            }
 
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -177,9 +213,9 @@ public class ModifyPwdActivity extends BaseActivity {
     }
 
     static class MyLoginErrorListener implements Response.ErrorListener {
-        WeakReference<PhoneLoginActivity> ref;
-        public MyLoginErrorListener(PhoneLoginActivity act) {
-            ref = new WeakReference<PhoneLoginActivity>(act);
+        WeakReference<ModifyPwdActivity> ref;
+        public MyLoginErrorListener(ModifyPwdActivity act) {
+            ref = new WeakReference<ModifyPwdActivity>(act);
         }
         @Override
         public void onErrorResponse(VolleyError volleyError) {
@@ -189,7 +225,7 @@ public class ModifyPwdActivity extends BaseActivity {
                 ref.get().progressPopupWindow.dismissView();
             }
 
-            ToastUtils.showShortToast("登录失败");
+            ToastUtils.showShortToast("提交失败");
         }
     }
 }

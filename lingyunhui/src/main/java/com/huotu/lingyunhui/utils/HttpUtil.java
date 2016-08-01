@@ -230,7 +230,7 @@ public class HttpUtil {
                     if(null != mall)
                     {
                         //写入userID
-                        account.setAccountId(String.valueOf(mall.getUserid()));
+                        account.setAccountId(String.valueOf(mall.getUserId()));
                         account.setAccountName(mall.getNickName());
                         account.setAccountIcon(mall.getHeadImgUrl());
 

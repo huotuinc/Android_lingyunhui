@@ -36,6 +36,7 @@ import com.huotu.lingyunhui.model.ShareModel;
 import com.huotu.lingyunhui.receiver.MyBroadcastReceiver;
 import com.huotu.lingyunhui.ui.base.BaseActivity;
 import com.huotu.lingyunhui.ui.base.BaseApplication;
+import com.huotu.lingyunhui.utils.AuthParamUtils;
 import com.huotu.lingyunhui.utils.SystemTools;
 import com.huotu.lingyunhui.utils.ToastUtils;
 import com.huotu.lingyunhui.utils.UrlFilterUtils;
@@ -90,17 +91,14 @@ public class WebViewActivity extends BaseActivity implements Handler.Callback, M
     @Bind(R.id.statuslayout)
     RelativeLayout statuslayout;
 
+
     @Override
-    protected void onCreate ( Bundle savedInstanceState ) {
-        super.onCreate(savedInstanceState);
+    protected void initData() {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        EventBus.getDefault().register(this);
-
         resources = this.getResources ( );
-        this.setContentView(R.layout.new_load_page);
         ButterKnife.bind(this);
-        setImmerseLayout(newtitleLayout);
+        setImmerseLayout1(newtitleLayout);
         mHandler = new Handler( this );
         progress = new ProgressPopupWindow ( WebViewActivity.this );
         share = new SharePopupWindow ( WebViewActivity.this );
@@ -111,18 +109,13 @@ public class WebViewActivity extends BaseActivity implements Handler.Callback, M
     }
 
     @Override
-    protected void initData() {
-
-    }
-
-    @Override
     protected void initTitle() {
 
     }
 
     @Override
     public int getLayoutId() {
-        return 0;
+        return R.layout.new_load_page;
     }
 
 
@@ -177,23 +170,23 @@ public class WebViewActivity extends BaseActivity implements Handler.Callback, M
         share.setOnDismissListener(new PoponDismissListener(WebViewActivity.this));
     }
 
-//    private void signHeader( WebView webView ){
-//        String userid= application.readMemberId();
-//        String unionid = application.readUserUnionId();
-//        String openId = BaseApplication.app.readOpenId();
-//        String sign = ObtainParamsMap.SignHeaderString(userid, unionid , openId);
-//        String userAgent = webView.getSettings().getUserAgentString();
-//        if( TextUtils.isEmpty(userAgent) ) {
-//            userAgent = "mobile;"+sign;
-//        }else{
-//            int idx = userAgent.lastIndexOf(";mobile;hottec:");
-//            if(idx>=0){
-//                userAgent = userAgent.substring(0,idx);
-//            }
-//            userAgent +=";mobile;"+sign;
-//        }
-//        webView.getSettings().setUserAgentString(userAgent);
-//    }
+    private void signHeader( WebView webView ){
+        String userid= application.readMemberId();
+        String unionid = application.readUserUnionId();
+        String openId = BaseApplication.app.readOpenId();
+        String sign = AuthParamUtils.SignHeaderString(userid, unionid , openId);
+        String userAgent = webView.getSettings().getUserAgentString();
+        if( TextUtils.isEmpty(userAgent) ) {
+            userAgent = "mobile;"+sign;
+        }else{
+            int idx = userAgent.lastIndexOf(";mobile;hottec:");
+            if(idx>=0){
+                userAgent = userAgent.substring(0,idx);
+            }
+            userAgent +=";mobile;"+sign;
+        }
+        webView.getSettings().setUserAgentString(userAgent);
+    }
 
     private void loadPage(){
         viewPage.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
@@ -201,14 +194,8 @@ public class WebViewActivity extends BaseActivity implements Handler.Callback, M
         viewPage.setClickable(true);
         viewPage.getSettings().setUseWideViewPort(true);
 
-//        String userAgent = viewPage.getSettings().getUserAgentString();
-//        if( TextUtils.isEmpty(userAgent) ) {
-//            userAgent = "mobile";
-//        }else{
-//            userAgent +=";mobile";
-//        }
-//        viewPage.getSettings().setUserAgentString(userAgent);
-       // signHeader( viewPage );
+
+        signHeader( viewPage );
 
         //是否需要避免页面放大缩小操作
         viewPage.getSettings().setSupportZoom(true);

@@ -14,6 +14,8 @@ import android.view.WindowManager;
 import com.huotu.lingyunhui.ui.guide.GuideActivity;
 import com.huotu.lingyunhui.utils.AppManager;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.ButterKnife;
 
 /**
@@ -33,6 +35,7 @@ public abstract class BaseActivity extends Activity {
         resources = this.getResources();
         setContentView(getLayoutId());
         ButterKnife.bind(this);
+        //EventBus.getDefault().register(this);
         AppManager.getInstance().addActivity(this);
         initData();
         initTitle();
@@ -44,6 +47,13 @@ public abstract class BaseActivity extends Activity {
             window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             int statusBarHeight = this.getStatusBarHeight(this.getBaseContext());
             view.setPadding(0, statusBarHeight, 0, 0);
+        }
+    }
+    public void setImmerseLayout1(View view) {
+        if (application.isKITKAT()) {
+            Window window = getWindow();
+            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            view.setPadding(0, 0, 0, 0);
         }
     }
 
@@ -71,6 +81,17 @@ public abstract class BaseActivity extends Activity {
         aty.finish();
     }
 
+    public void Register() {
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    public void UnRegister() {
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
+    }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK

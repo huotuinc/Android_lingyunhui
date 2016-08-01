@@ -40,8 +40,26 @@ class AuthMallModel {
 
     public class AuthMall
     {
-        private int userid;
+        private int userId;
+        private String userName;
         private int levelId;
+
+        public int getUserId() {
+            return userId;
+        }
+
+        public void setUserId(int userId) {
+            this.userId = userId;
+        }
+
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
         private String levelName;
         private String nickName;
         private String headImgUrl;
@@ -106,15 +124,8 @@ class AuthMallModel {
             this.levelName = levelName;
         }
 
-        public
-        int getUserid ( ) {
-            return userid;
-        }
 
-        public
-        void setUserid ( int userid ) {
-            this.userid = userid;
-        }
+
 
         public int getRelatedType() {
             return relatedType;

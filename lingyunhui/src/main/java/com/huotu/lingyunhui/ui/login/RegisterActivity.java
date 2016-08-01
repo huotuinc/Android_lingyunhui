@@ -109,7 +109,7 @@ public class RegisterActivity extends BaseActivity {
                             progressPopupWindow.dismissView();
                             ActivityUtils.getInstance().skipActivity(RegisterActivity.this,ModifyPwdActivity.class);
                         }
-                        if (dataBase == null || dataBase.getCode() != 200 ) {
+                        if (dataBase  !=null && dataBase.getCode() == 200 ) {
                            // ToastUtils.showShortToast( RegisterActivity.this,"验证码错误");
                             if (bundle.getInt("type")==1) {
                                 bundle.putInt("type", 1);
@@ -121,6 +121,8 @@ public class RegisterActivity extends BaseActivity {
                                 ActivityUtils.getInstance().skipActivity(RegisterActivity.this, ModifyPwdActivity.class,bundle);
                             }
                             return;
+                        }else {
+                            ToastUtils.showShortToast(RegisterActivity.this,dataBase.getMsg());
                         }
 
                         edtCode.requestFocus();
@@ -140,7 +142,7 @@ public class RegisterActivity extends BaseActivity {
                 break;
             //获取验证码
             case R.id.btn_code:
-                if (isWritePhone() == true) {
+                if (isWritePhone()) {
                     //验证用户名是否存在
                     checkUserName();
                 } else {

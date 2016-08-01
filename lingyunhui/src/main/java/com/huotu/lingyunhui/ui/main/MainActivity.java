@@ -47,6 +47,7 @@ import com.huotu.lingyunhui.model.AccountModel;
 import com.huotu.lingyunhui.model.MenuBean;
 import com.huotu.lingyunhui.model.PayModel;
 import com.huotu.lingyunhui.model.PhoneLoginModel;
+import com.huotu.lingyunhui.model.RefreshHttpHeaderEvent;
 import com.huotu.lingyunhui.service.LocationService;
 import com.huotu.lingyunhui.ui.base.BaseActivity;
 import com.huotu.lingyunhui.ui.base.BaseApplication;
@@ -64,12 +65,17 @@ import com.huotu.lingyunhui.utils.VolleyUtil;
 import com.huotu.lingyunhui.widgets.ProgressPopupWindow;
 import com.huotu.lingyunhui.widgets.SharePopupWindow;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.sina.weibo.SinaWeibo;
@@ -117,6 +123,9 @@ public class MainActivity extends BaseActivity implements Handler.Callback {
         pageWeb = refreshWebView.getRefreshableView();
         progress = new ProgressPopupWindow ( MainActivity.this );
         share = new SharePopupWindow ( MainActivity.this );
+
+        //signHeader(pageWeb);
+
         refreshWebView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<WebView>() {
             @Override
             public void onRefresh(PullToRefreshBase<WebView> pullToRefreshBase) {
@@ -125,6 +134,8 @@ public class MainActivity extends BaseActivity implements Handler.Callback {
             }
         });
         loadPage();
+        Register();
+
         //设置沉浸模式
         setImmerseLayout(this.findViewById(R.id.titleLayoutL));
     }
@@ -134,6 +145,17 @@ public class MainActivity extends BaseActivity implements Handler.Callback {
 
     }
 
+    public void Register() {
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    public void UnRegister() {
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
+    }
     @Override
     public int getLayoutId() {
         mHandler = new Handler ( this );
@@ -166,6 +188,7 @@ public class MainActivity extends BaseActivity implements Handler.Callback {
         pageWeb.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
         pageWeb.setVerticalScrollBarEnabled(false);
         pageWeb.setClickable(true);
+        signHeader( pageWeb );
         pageWeb.getSettings().setUseWideViewPort(true);
         //是否需要避免页面放大缩小操作
         pageWeb.getSettings().setSupportZoom(true);
@@ -319,6 +342,27 @@ public class MainActivity extends BaseActivity implements Handler.Callback {
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+        if( progress !=null ){
+            progress.dismissView();
+            progress=null;
+        }
+        if( share !=null){
+            share.dismiss();
+            share=null;
+        }
+        if( pageWeb !=null ){
+            pageWeb.setVisibility(View.GONE);
+        }
+        UnRegister();
+
+        if(mHandler!=null){
+            mHandler.removeCallbacksAndMessages(null);
+        }
+    }
     @Override
     public boolean handleMessage(Message msg) {
         switch (msg.what){
@@ -587,7 +631,7 @@ public class MainActivity extends BaseActivity implements Handler.Callback {
             ToastUtils.showShortToast(ref.get(), "绑定操作成功");
 
             ref.get().application.writeMemberInfo (
-                    phoneLoginModel.getData().getNickName() , String.valueOf( phoneLoginModel.getData().getUserid() ),
+                    phoneLoginModel.getData().getNickName() , String.valueOf( phoneLoginModel.getData().getUserId() ),
                     phoneLoginModel.getData().getHeadImgUrl() , weixinModel.getAccountToken (),
                     weixinModel.getAccountUnionId () , weixinModel.getOpenid()
             );
@@ -616,5 +660,28 @@ public class MainActivity extends BaseActivity implements Handler.Callback {
             }
             ToastUtils.showShortToast(ref.get(),"绑定微信操作失败。");
         }
+    }
+    private void signHeader( WebView webView ){
+        String userid= application.readMemberId();
+        String unionid = application.readUserUnionId();
+        String openId = BaseApplication.app.readOpenId();
+        String sign = AuthParamUtils.SignHeaderString(userid, unionid , openId );
+        String userAgent = webView.getSettings().getUserAgentString();
+        if( TextUtils.isEmpty(userAgent) ) {
+            userAgent = "mobile;"+sign;
+        }else{
+            int idx = userAgent.lastIndexOf(";mobile;hottec:");
+            if(idx>=0){
+                userAgent = userAgent.substring(0,idx);
+            }
+
+            userAgent +=";mobile;"+sign;
+        }
+        webView.getSettings().setUserAgentString( userAgent );
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventRefreshHttpHeader(RefreshHttpHeaderEvent event){
+        if( pageWeb ==null) return;
+        signHeader(pageWeb);
     }
 }

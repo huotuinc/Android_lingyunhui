@@ -71,7 +71,7 @@ public class AuthParamUtils {
                 //添加额外固定参数
                 paramMap.put ( "version", application.getAppVersion (context) );
                 paramMap.put ( "operation", Constants.OPERATION_CODE );
-                paramMap.put ( "buserId", application.readUserId ( ) );
+                paramMap.put ( "userid", application.readUserId ( ) );
                 //1、timestamp
                 paramMap.put ( "timestamp", URLEncoder.encode ( String.valueOf ( timestamp ),
                                                                 "UTF-8" ) );
@@ -88,7 +88,7 @@ public class AuthParamUtils {
                 builder.append ( "&appid="+paramMap.get ( "appid" ) );
                 builder.append ( "&unionid="+paramMap.get ( "unionid" ) );
                 builder.append ( "&sign="+paramMap.get ( "sign" ) );
-                builder.append ( "&buserId="+application.readUserId ( ) );
+                builder.append ( "&userid="+application.readUserId ( ) );
                 builder.append ( "&version=" + application.getAppVersion (context) );
                 builder.append ( "&operation=" + Constants.OPERATION_CODE );
             }
@@ -96,7 +96,7 @@ public class AuthParamUtils {
             {
                 paramMap.put ( "version", application.getAppVersion (context) );
                 paramMap.put ( "operation", Constants.OPERATION_CODE );
-                paramMap.put ( "buserId", application.readUserId() );
+                paramMap.put ( "userid", application.readUserId() );
                 paramMap.put ( "customerid", application.readMerchantId ( ) );
                 //添加额外固定参数
                 //1、timestamp
@@ -117,7 +117,7 @@ public class AuthParamUtils {
                 builder.append ( "&appid="+paramMap.get ( "appid" ) );
                 builder.append ( "&unionid="+paramMap.get ( "unionid" ) );
                 builder.append ( "&sign="+paramMap.get ( "sign" ) );
-                builder.append ( "&buserId="+application.readUserId ( ) );
+                builder.append ( "&userid="+application.readUserId ( ) );
                 builder.append ( "&version=" + application.getAppVersion (context) );
                 builder.append ( "&operation=" + Constants.OPERATION_CODE );
             }
@@ -147,12 +147,14 @@ public class AuthParamUtils {
             paramMap.put ( "city", account.getCity ( ) );
             paramMap.put ( "country", account.getCountry ( ) );
             paramMap.put ( "province", account.getProvince ( ) );
-            paramMap.put ( "headimgurl", account.getAccountIcon ( ) );
-            paramMap.put ( "unionid", account.getAccountUnionId ( ) );
+            paramMap.put ( "wxHead", account.getAccountIcon ( ) );
+            paramMap.put ( "unionId", account.getAccountUnionId ( ) );
             paramMap.put ( "timestamp", String.valueOf ( timestamp ) );
             paramMap.put ( "appid", Constants.APP_ID );
             paramMap.put ( "version", application.getAppVersion (context) );
             paramMap.put ( "operation", Constants.OPERATION_CODE );
+            paramMap.put ("mobile",account.getMoblie());
+            paramMap.put ("password",account.getPassword());
             paramMap.put ( "sign", getSign ( paramMap ) );
             //去掉null值
             paramMap = removeNull(paramMap);
@@ -450,5 +452,16 @@ public class AuthParamUtils {
             return null;
         }
     }
-
+    /**
+     *
+     * @param userid
+     * @param unionid
+     * @return
+     */
+    public static String SignHeaderString(String userid , String unionid , String openId){
+        String temp = userid + unionid + openId +  Constants.APP_SECRET;
+        String sign =  EncryptUtil.getInstance().encryptMd532(temp);
+        String str= "hottec:"+sign+":"+ userid+":"+unionid+ ":" + openId + ";";
+        return str;
+    }
 }

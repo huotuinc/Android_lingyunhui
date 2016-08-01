@@ -80,15 +80,16 @@ class InitModel {
 
     public class UserModel
     {
-        private int userId;
+        private String  userId;
         private String userName;
-        private int unionId;
+        private String unionId;
+        private String openId;
 
-        public int getUserId() {
+        public String getUserId() {
             return userId;
         }
 
-        public void setUserId(int userId) {
+        public void setUserId(String userId) {
             this.userId = userId;
         }
 
@@ -100,23 +101,23 @@ class InitModel {
             this.userName = userName;
         }
 
-        public int getUnionId() {
+        public String getUnionId() {
             return unionId;
         }
 
-        public void setUnionId(int unionId) {
+        public void setUnionId(String unionId) {
             this.unionId = unionId;
         }
 
-        public int getOpenId() {
+        public String getOpenId() {
             return openId;
         }
 
-        public void setOpenId(int openId) {
+        public void setOpenId(String openId) {
             this.openId = openId;
         }
 
-        private int openId;
+
     }
 
     public class MenuModel
